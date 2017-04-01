@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- static css file -->
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300" rel="stylesheet" type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" integrity="sha256-thgNwq1kqppxWOZpF2V/KfgGpLeBWbLMg704XfwYUDQ=" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-inverse">
+        <a class="navbar-brand" href="#"><span style="font-size: 110%; color: white">LOLA</span> <span class="open-sans-font" style="font-size: 85%; color: grey">&nbsp;&nbsp;CS-GY 9223: Cloud Computing</span></a>
+    </nav>
+
+    <div class="container">
+        <div class="row" id="intro-sentence">
+            <div class="col-md-12">
+                <center class="open-sans-font intro-main"><span id="sentence1"></span><span id="sentence2"></span></center>
+            </div>
+        </div>
+
+        <div class="row" id="intro-sentence-assist">
+            <div class="col-md-12">
+                <center class="open-sans-font intro-assist"><span id="sentence3"></span><span id="sentence4"></span></center>
+            </div>
+        </div>
+
+        <div class="row" id="lookup">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-group" align="center">
+                        <input type="text" class="form-control" id="name-bar" placeholder="Summoner name in NA server..."></input>
+                        <button type="submit" class="btn btn-nice" id="name-btn">Find my data<span class="glyphicon glyphicon-chevron-right"></span></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" id="tab-list-container">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs" id="gameTabList" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-expanded="true">Type 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile">Type 2</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" id="dropdown1-tab" href="#dropdown1" role="tab" data-toggle="tab" aria-controls="dropdown1">Sub-Type-1</a>
+                            <a class="dropdown-item" id="dropdown2-tab" href="#dropdown2" role="tab" data-toggle="tab" aria-controls="dropdown2">Sub-Type-2</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="type1-left-chart"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="type1-right-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="type2-left-chart"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="type2-right-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="dropdown1" role="tabpanel" aria-labelledby="dropdown1-tab">
+                        <p>Chart Group 3 BlaBlaBla......</p>
+                    </div>
+                    <div class="tab-pane fade" id="dropdown2" role="tabpanel" aria-labelledby="dropdown2-tab">
+                        <p>Chart Group 4 BlaBlaBla......</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../static/chart-config.js"></script>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <!-- Typed.js -->
+    <script src="../static/typed.js"></script>
+    <script src="../static/typed-animation.js"></script>
+  </body>
+</html>
