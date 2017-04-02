@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <title>This is an Visualization</title>
+        <style>
+            body {
+                margin: 0px;
+                font-family: "Arial";
+            }
+            #title {
+                background-color: black;
+                color: white;
+                padding: 10px;
+            }
+            h1{ 
+                margin: 0;
+            }
+            h2 {
+                text-align: center;
+                padding: 10px;
+            }
+            circle {
+                opacity: 0.7;
+            }
+            .domain {
+                fill: none;
+                stroke: #000;
+            }
+            #tooltip {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 5;
+                border: solid 1px black;
+                visibility: hidden;
+                transition: all 0.5s;
+                opacity: 0;
+            }
+            #timeSelect {
+                margin: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "title">
+            <h1>Game Match</h1>
+        </div>
+        <div class="container">
+            <h2>Match Details</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th colspan="2">Blue Team</th>
+                  <th colspan="2">Red Team</th>
+                </tr>
+              </thead>
+              <thread>
+                <tr>
+                    <th>Name</th>
+                    <th>KDA</th>
+                    <th>Name</th>
+                    <th>KDA</th>
+                </tr>
+              </thread>
+              <tbody>
+                <tr>
+                    <th>Vi</th>
+                    <th>10/5/3</th>
+                    <th>Lee Sin</th>
+                    <th>2/8/4</th>
+                </tr>
+                <tr>
+                    <th>Ahri</th>
+                    <th>10/5/3</th>
+                    <th>Katrina</th>
+                    <th>2/8/4</th>
+                </tr>
+                <tr>
+                    <th>Wukong</th>
+                    <th>10/5/3</th>
+                    <th>Darius</th>
+                    <th>2/8/4</th>
+                </tr>
+                <tr>
+                    <th>Jhin</th>
+                    <th>10/5/3</th>
+                    <th>Miss Fortune</th>
+                    <th>2/8/4</th>
+                </tr>
+                <tr>
+                    <th>Sona</th>
+                    <th>10/5/3</th>
+                    <th>Karma</th>
+                    <th>2/8/4</th>
+                </tr>
+              </tbody>
+              
+            </table>
+
+            <h2>Game Timeline</h2>
+            <div>
+                <svg id = "viz">
+                    <image xlink:href="http://map.riftkit.net/static/img/full.jpg" height="400" width="500" x="20" y="20">
+                </svg>
+            </div>
+            <input type="range" min="1" max="5" value="1" id="timeSelect" onchange="setTime(this.value)" style="width: 500">
+            <div id="tooltip">Tooltip</div>
+        </div>
+    </body>
+    
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script>
+        var time = 1;
+        var chartWidth = 500;
+        var chartHeight = 400;
+        var chartMargin = {top: 20, left: 30, right: 20, bottom: 20};
+        var chartInnerHeight = chartHeight - chartMargin.top - chartMargin.bottom;
+        var chartInnerWidth = chartWidth - chartMargin.left - chartMargin.right;
+        
+        var data = [];
+        var chart = d3.select("#viz");
+        
+        var dotGroup = chart.append("g")
+                           .attr("transform", "translate(" + chartMargin.left + "," + chartMargin.top + ")");
+
+        function setTime(newTime) {
+            time = newTime;
+            render(data);
+        }
+        
+        function render(data) {
+            var filteredData = data.filter(function(d) { 
+                return d.time == time;
+            });
+            renderChart(filteredData);
+        }
+        
+        function renderChart(data) {
+            chart
+                .attr("width", chartWidth)
+                .attr("height", chartHeight)
+            
+            var xScale = d3.scale.linear()
+                .range([0, chartInnerWidth])
+                .domain([0, 500]);
+                //.domain(d3.extent(data, function(d) { return d.x}));
+            
+            var yScale = d3.scale.linear()
+                .range([chartInnerHeight, 0])
+                .domain([0, 400]);
+                //.domain(d3.extent(data, function(d) { return d.y}));
+            
+            var cScale = d3.scale.category10();
+
+            var selection = dotGroup.selectAll("circle")
+                .data(data);
+
+            selection.enter()
+                .append("circle")
+                    .on("mouseenter", function(d, i) {
+                        d3.select("#tooltip").style({
+                            visibility: "visible",
+                            top: d3.event.clientY,
+                            left: d3.event.clientX,
+                            opacity: 1
+                        }).text("Player" + d.player);
+                    })
+                    .on("mouseleave", function(d, i) {
+                        d3.select("#tooltip").style({
+                            visibility: "hidden",
+                            opacity: 0
+                        })
+                    });
+
+            selection.exit().remove();
+            
+            selection.transition()
+                .attr("r", function(d) { return 5})
+                .attr("cx", function(d) { return xScale(d.x)})
+                .attr("cy", function(d) { return yScale(d.y)})
+                .attr("fill", "white")   
+        }
+        d3.json("https://raw.githubusercontent.com/clementxia/LOL-Data-Analysis/master/data.json", function(error, result) {
+            data = result;
+            render(result);
+        });  
+    </script>
+</html>
