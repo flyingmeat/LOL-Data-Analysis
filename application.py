@@ -14,6 +14,10 @@ def player_data():
 	# print name
 	return render_template('my-profile.html')
 
+@application.route('/game_matches')
+def game_matches():
+	return render_template('game_matches.html')
+
 @application.route('/player_name')
 def player_name():
 	name = request.args.get('name', '2')
