@@ -4,6 +4,6 @@
 !.elasticbeanstalk/*.global.yml
 
 # LOL match data feed module AWS config
-./LOLMatchDataFeed/config.json
-./LOLMatchDataFeed/node_modules
-./LOLMatchDataFeed/test.js
+/LOLMatchDataFeed/config.json
+/LOLMatchDataFeed/node_modules
+/LOLMatchDataFeed/test.js
