@@ -1,18 +1,8 @@
+console.log($('#name-btn').attr('href'));
+console.log("123");
+
 $('#name-btn').click(function() {
 	name = $('#name-bar').val();
 	console.log(name);
-	// $.ajax({
-	// 	type: "POST",
-	// 	url: "/player_name",
-	// 	data: {"name": name},
-	// 	success: function(data) {
-	// 		console.log(data);
-	// 	},
-	// 	dataType: "json"
-	// });
-	$.getJSON('/player_name', {
-        name: name
-      }, function(data) {
-        console.log(data)
-      });
+	$('#name-btn').attr('href', "/player_data?user_name=" + name);
 });

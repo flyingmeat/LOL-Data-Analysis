@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask import render_template
+import requests
 
 application = Flask(__name__)
 # name = ''
@@ -10,7 +11,8 @@ def get_index_page():
 
 @application.route('/player_data')
 def player_data():
-	print 1
+	name = request.args.get('user_name', 'None')
+	print requests.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/jruix?api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb").content
 	# print name
 	return render_template('my-profile.html')
 
