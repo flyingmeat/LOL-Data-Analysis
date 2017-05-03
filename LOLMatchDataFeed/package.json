@@ -22,6 +22,7 @@
     "elasticsearch": "^13.0.0",
     "epoch.js": "^0.4.4",
     "http-aws-es": "^1.1.3",
+    "later": "^1.2.0",
     "leagueapi": "^0.4.21",
     "queue-fifo": "^0.2.3"
   }
