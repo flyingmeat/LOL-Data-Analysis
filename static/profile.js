@@ -1,8 +1,8 @@
 // var myName = {{ name|tojson }};
 // console.log(myName);
 
-console.log(myName);
-console.log(profileData.length);
+// console.log(myName);
+// console.log(profileData.length);
 
 for (var i = 0; i < profileData.length; i++) {
 	var card = document.createElement("div");
