@@ -66,42 +66,42 @@
               </thead>
               <thread>
                 <tr>
-                    <th>Name</th>
+                    <th>ChampionID</th>
                     <th>KDA</th>
-                    <th>Name</th>
+                    <th>ChampionID</th>
                     <th>KDA</th>
                 </tr>
               </thread>
               <tbody>
                 <tr>
-                    <th>Vi</th>
-                    <th>10/5/3</th>
-                    <th>Lee Sin</th>
-                    <th>2/8/4</th>
+                    <th>{{ data.participants[0].championId }}</th>
+                    <th>{{ data.participants[0].stats.kills }}/{{ data.participants[0].stats.deaths }}/{{ data.participants[0].stats.assists }}</th>
+                    <th>{{ data.participants[5].championId }}</th>
+                    <th>{{ data.participants[5].stats.kills }}/{{ data.participants[5].stats.deaths }}/{{ data.participants[5].stats.assists }}</th>
                 </tr>
                 <tr>
-                    <th>Ahri</th>
-                    <th>10/5/3</th>
-                    <th>Katrina</th>
-                    <th>2/8/4</th>
+                    <th>{{ data.participants[1].championId }}</th>
+                    <th>{{ data.participants[1].stats.kills }}/{{ data.participants[1].stats.deaths }}/{{ data.participants[1].stats.assists }}</th>
+                    <th>{{ data.participants[6].championId }}</th>
+                    <th>{{ data.participants[6].stats.kills }}/{{ data.participants[6].stats.deaths }}/{{ data.participants[6].stats.assists }}</th>
                 </tr>
                 <tr>
-                    <th>Wukong</th>
-                    <th>10/5/3</th>
-                    <th>Darius</th>
-                    <th>2/8/4</th>
+                    <th>{{ data.participants[2].championId }}</th>
+                    <th>{{ data.participants[2].stats.kills }}/{{ data.participants[2].stats.deaths }}/{{ data.participants[2].stats.assists }}</th>
+                    <th>{{ data.participants[7].championId }}</th>
+                    <th>{{ data.participants[7].stats.kills }}/{{ data.participants[7].stats.deaths }}/{{ data.participants[7].stats.assists }}</th>
                 </tr>
                 <tr>
-                    <th>Jhin</th>
-                    <th>10/5/3</th>
-                    <th>Miss Fortune</th>
-                    <th>2/8/4</th>
+                    <th>{{ data.participants[3].championId }}</th>
+                    <th>{{ data.participants[3].stats.kills }}/{{ data.participants[3].stats.deaths }}/{{ data.participants[3].stats.assists }}</th>
+                    <th>{{ data.participants[8].championId }}</th>
+                    <th>{{ data.participants[8].stats.kills }}/{{ data.participants[8].stats.deaths }}/{{ data.participants[8].stats.assists }}</th>
                 </tr>
                 <tr>
-                    <th>Sona</th>
-                    <th>10/5/3</th>
-                    <th>Karma</th>
-                    <th>2/8/4</th>
+                    <th>{{ data.participants[4].championId }}</th>
+                    <th>{{ data.participants[4].stats.kills }}/{{ data.participants[4].stats.deaths }}/{{ data.participants[4].stats.assists }}</th>
+                    <th>{{ data.participants[9].championId }}</th>
+                    <th>{{ data.participants[9].stats.kills }}/{{ data.participants[9].stats.deaths }}/{{ data.participants[9].stats.assists }}</th>
                 </tr>
               </tbody>
               
@@ -110,39 +110,49 @@
             <h2>Game Timeline</h2>
             <div>
                 <svg id = "viz">
-                    <image xlink:href="http://map.riftkit.net/static/img/full.jpg" height="400" width="500" x="20" y="20">
+                    <image xlink:href="http://pre02.deviantart.net/dbda/th/pre/f/2016/350/a/6/the_league_of_legends_summoners_rift_map_edit__by_of_nihility-dartn0q.png" height="100%" width="100% " x="150">
                 </svg>
             </div>
-            <input type="range" min="1" max="5" value="1" id="timeSelect" onchange="setTime(this.value)" style="width: 500">
+            <div align="middle">
+            <input type="range" min="0" max="{{ data.timeline.frames|length - 2}}" value="0" id="timeSelect" onchange="setTime(this.value)" style="width: 500" text-align="center">
+            </div>
             <div id="tooltip">Tooltip</div>
         </div>
     </body>
     
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script>
-        var time = 1;
-        var chartWidth = 500;
-        var chartHeight = 400;
-        var chartMargin = {top: 20, left: 30, right: 20, bottom: 20};
+        var time = 0;
+        var chartWidth = 800;
+        var chartHeight = 420;
+        var chartMargin = {top: 50, left: 50, right: 20, bottom: 20};
         var chartInnerHeight = chartHeight - chartMargin.top - chartMargin.bottom;
         var chartInnerWidth = chartWidth - chartMargin.left - chartMargin.right;
+        var json = {{ data|tojson }};
         
         var data = [];
         var chart = d3.select("#viz");
         
         var dotGroup = chart.append("g")
-                           .attr("transform", "translate(" + chartMargin.left + "," + chartMargin.top + ")");
+                           .attr("transform", "translate(" + 25 + "," + 25 + ")");
+
+        render(json.timeline.frames);
 
         function setTime(newTime) {
             time = newTime;
-            render(data);
+            render(json.timeline.frames);
         }
         
         function render(data) {
-            var filteredData = data.filter(function(d) { 
-                return d.time == time;
-            });
-            renderChart(filteredData);
+            var frame = data[time].participantFrames;
+            var position = [];
+            for (i = 1; i <= 10; i++) {
+                var obj = new Object();
+                obj.x = frame[i].position.x;
+                obj.y = frame[i].position.y;
+                position.push(obj);
+            }
+            renderChart(position);
         }
         
         function renderChart(data) {
@@ -151,13 +161,13 @@
                 .attr("height", chartHeight)
             
             var xScale = d3.scale.linear()
-                .range([0, chartInnerWidth])
-                .domain([0, 500]);
+                .range([0, 350])
+                .domain([0, 16000]);
                 //.domain(d3.extent(data, function(d) { return d.x}));
             
             var yScale = d3.scale.linear()
-                .range([chartInnerHeight, 0])
-                .domain([0, 400]);
+                .range([350, 0])
+                .domain([0, 16000]);
                 //.domain(d3.extent(data, function(d) { return d.y}));
             
             var cScale = d3.scale.category10();
@@ -186,13 +196,11 @@
             
             selection.transition()
                 .attr("r", function(d) { return 5})
-                .attr("cx", function(d) { return xScale(d.x)})
+                .attr("cx", function(d) { 
+                    return xScale(d.x)+365;
+                })
                 .attr("cy", function(d) { return yScale(d.y)})
                 .attr("fill", "white")   
         }
-        d3.json("https://raw.githubusercontent.com/clementxia/LOL-Data-Analysis/master/data.json", function(error, result) {
-            data = result;
-            render(result);
-        });  
     </script>
 </html>
