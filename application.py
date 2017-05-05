@@ -42,7 +42,7 @@ def player_data():
 	recieve = requests.get(hero_query + str(profile_data["id"]) + "?" + api_key)
 	if recieve.status_code != 200:
 		return "Error!" + str(recieve.status_code)
-	hero_data = recieve.content
+	hero_data = json.loads(recieve.content)
 	# match_data  = requests.get()
 
 	return render_template('my-profile.html', name = name, hero_data = hero_data)
