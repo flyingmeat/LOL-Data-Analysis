@@ -13,16 +13,17 @@ hero_query = "https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-mas
 summoner_info_query = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/"
 match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/230727164?endIndex=15&beginIndex=0&"
 
+main_data = {}
 
 @application.route('/')
 def get_index_page():
-	return render_template('index.html')
+	return render_template('index.html', data = main_data)
 
 @application.route('/update_data', methods = ['POST'])
 def test_route():
 	print request.headers
 	print json.loads(request.data)
-
+	main_data = json.loads(request.data)
 	return Response(status = 200)
 
 @application.route('/player_data')
