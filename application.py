@@ -21,10 +21,9 @@ def get_index_page():
 @application.route('/update_data', methods = ['POST'])
 def test_route():
 	print request.headers
-	print request.data
-	print type(request.data)
-	print request.method
-	Response(status = 200)
+	print json.loads(request.data)
+
+	return Response(status = 200)
 
 @application.route('/player_data')
 def player_data():
