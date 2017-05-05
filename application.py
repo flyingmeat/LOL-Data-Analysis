@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask import render_template
+from flask import Response
 import requests
 import json
 
@@ -12,8 +13,13 @@ hero_query = "https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-mas
 summoner_info_query = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/"
 match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/230727164?endIndex=15&beginIndex=0&"
 
+
 @application.route('/')
 def get_index_page():
+	return render_template('index.html')
+
+@application.route('/test')
+def test_route():
 	return render_template('index.html')
 
 @application.route('/player_data')
