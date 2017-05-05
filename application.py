@@ -17,6 +17,7 @@ main_data = {}
 
 @application.route('/')
 def get_index_page():
+	print main_data
 	return render_template('index.html', data = main_data)
 
 @application.route('/update_data', methods = ['POST'])
@@ -24,6 +25,7 @@ def test_route():
 	print request.headers
 	print json.loads(request.data)
 	main_data = json.loads(request.data)
+	print main_data
 	return Response(status = 200)
 
 @application.route('/player_data')
