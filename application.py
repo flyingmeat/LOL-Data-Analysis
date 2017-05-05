@@ -18,9 +18,12 @@ match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-acc
 def get_index_page():
 	return render_template('index.html')
 
-@application.route('/test')
+@application.route('/update_data', methods = ['POST'])
 def test_route():
-	return render_template('index.html')
+	print request.headers
+	print request.data
+	print type(request.data)
+	Response(status = 200)
 
 @application.route('/player_data')
 def player_data():
