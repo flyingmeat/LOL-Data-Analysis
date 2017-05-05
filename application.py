@@ -23,6 +23,7 @@ def test_route():
 	print request.headers
 	print request.data
 	print type(request.data)
+	print request.method
 	Response(status = 200)
 
 @application.route('/player_data')
