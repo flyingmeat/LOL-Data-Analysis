@@ -165,7 +165,7 @@ setInterval(function() {
 }, 1000);
 
 // Function: construct match data
-var constructMatchData = function(data) {
+function constructMatchData(data) {
 
   var matchData = {
     matchId: data.matchId,
@@ -235,4 +235,6 @@ var constructMatchData = function(data) {
   }
 
   return matchData;
-};
+}
+
+// clean and feed data to S3

@@ -7,3 +7,4 @@
 /LOLMatchDataFeed/config.json
 /LOLMatchDataFeed/node_modules
 /LOLMatchDataFeed/test.js
+.DS_Store
