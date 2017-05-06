@@ -4,7 +4,7 @@
 // console.log(myName);
 // console.log(profileData.length);
 
-for (var i = 0; i < profileData.length; i++) {
+for (var i = 0; i < heroData.length; i++) {
 	var card = document.createElement("div");
 	
 	$(card).addClass("card")
@@ -12,20 +12,20 @@ for (var i = 0; i < profileData.length; i++) {
 			.css('width', '20rem')
 			.append(
 				$('<div>', {'class' : 'card-block'}).append(
-					$('<h6>', {'class' : 'card-title', 'text' : profileData[i]['championId']})
+					$('<h6>', {'class' : 'card-title', 'text' : heroData[i]['championId']})
 					)
 				)
 			.append(
 				$('<ul>', {'class' : 'list-group list-group-flush'}).append(
 					$('<li>', {'class' : 'list-group-item'}).append(
 						$('<div>').append(
-							$('<p>', {'text' : 'Champion Level: ' + profileData[i]['championLevel']})
+							$('<p>', {'text' : 'Champion Level: ' + heroData[i]['championLevel']})
 							)
 						.append(
-							$('<p>', {'text' : 'Champion Points: ' + profileData[i]['championPoints']})
+							$('<p>', {'text' : 'Champion Points: ' + heroData[i]['championPoints']})
 							)
 						.append(
-							$('<p>', {'text' : 'Last Play Time: ' + profileData[i]['lastPlayTime']})
+							$('<p>', {'text' : 'Last Play Time: ' + heroData[i]['lastPlayTime']})
 							)
 						)
 					)
