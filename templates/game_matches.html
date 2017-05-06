@@ -60,8 +60,18 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th colspan="2">Blue Team</th>
-                  <th colspan="2">Red Team</th>
+                  <th>Blue Team</th>
+                  {% if data.teams[0].winner %}
+                  <th>Result: Win</th>
+                  {% else %}
+                  <th>Result: Lose</th>
+                  {% endif %}
+                  <th>Red Team</th>
+                  {% if data.teams[1].winner %}
+                  <th>Result: Win</th>
+                  {% else %}
+                  <th>Result: Lose</th>
+                  {% endif %}
                 </tr>
               </thead>
               <thread>
@@ -150,6 +160,7 @@
                 var obj = new Object();
                 obj.x = frame[i].position.x;
                 obj.y = frame[i].position.y;
+                obj.player = frame[i].participantId;
                 position.push(obj);
             }
             renderChart(position);
@@ -183,7 +194,7 @@
                             top: d3.event.clientY,
                             left: d3.event.clientX,
                             opacity: 1
-                        }).text("Player" + d.player);
+                        }).text("Player:" + d.player);
                     })
                     .on("mouseleave", function(d, i) {
                         d3.select("#tooltip").style({
