@@ -11,8 +11,8 @@ api_key = "api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb"
 hero_query = "https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/"
 # summoner_info_query = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + "jruix?"
 summoner_info_query = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/"
-match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/230727164?endIndex=15&beginIndex=0&"
-
+# match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/230727164?endIndex=15&beginIndex=0&"
+match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/"
 main_data = {}
 
 @application.route('/')
@@ -44,7 +44,8 @@ def player_data():
 	if recieve.status_code != 200:
 		return "Error!" + str(recieve.status_code)
 	hero_data = json.loads(recieve.content)
-	# match_data  = requests.get()
+	match_data  = requests.get(match_list_query + profile_data["accountId"] + "?endIndex=15&beginIndex=0&" + api_key)
+	print match_data
 
 	return render_template('my-profile.html', name = name, hero_data = hero_data)
 

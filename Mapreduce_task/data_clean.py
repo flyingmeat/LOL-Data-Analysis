@@ -23,7 +23,7 @@ class Get_file(object):
 						curr_result.append(str('%1.3f' % (float(values[i]) / float(count))))
 
 					if end_index < len(values) - 1:	
-						for i in range(end_index + 1, len(values) - 1):
+						for i in range(end_index, len(values) - 1):
 							curr_result.append(values[i])
 					if name == 'champion' or name == 'ban_rate':
 						curr_result.append(values[-1])
