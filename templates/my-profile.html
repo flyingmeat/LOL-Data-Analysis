@@ -10,7 +10,10 @@
 <!-- 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
+		<script type="text/javascript">
+			var myName = {{ name|tojson }};
+			var profileData = JSON.parse({{ data|tojson}});
+		</script>
 		<style>
 			body {
 				background-color: #666666;
@@ -44,14 +47,14 @@
 	</head>
 	<body>
 		<div class="title">
-			<p>Hi, </p><p class="player-id"></p>
+			<p>Hi, </p><p class="player-id">{{ name }}</p>
 		</div>
 		<div class="container">
 			<div class="container heros">
 			<div class="title">Used Heros</div>
-			<div class="container-fluid card-contain rounded">
+			<div class="container-fluid card-contain rounded" id = "heros">
 		        <!-- 平均胜率，个人胜率，个人 K/D，平均 K/D, 个人评级，评分  -->
-				<div class="card hero" style="width: 20rem;">
+				<!-- <div class="card hero" style="width: 20rem;">
 					<img class="card-img-top" src="..." alt="Card image cap">
 					<div class="card-block">
 						<h6 class="card-title">Hero Name</h4>
@@ -73,99 +76,7 @@
 					<div class="card-block">
 						<a href="#" class="btn btn-primary">Hero Description</a>
 					</div>
-				</div>
-				<div class="card hero" style="width: 20rem;">
-					<img class="card-img-top" src="..." alt="Card image cap">
-					<div class="card-block">
-						<h6 class="card-title">Hero Name</h4>
-					</div>
-					<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<div>
-						<p>Average Win rate(all):</p>
-						<p>Personal Win rate:</p>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div>
-							<p>Average K/D:</p>
-							<p>Personal K/D:</p>
-						</div>
-					</li>
-					</ul>
-					<div class="card-block">
-						<a href="#" class="btn btn-primary">Hero Description</a>
-					</div>
-				</div>
-				<div class="card hero" style="width: 20rem;">
-					<img class="card-img-top" src="..." alt="Card image cap">
-					<div class="card-block">
-						<h6 class="card-title">Hero Name</h4>
-					</div>
-					<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<div>
-						<p>Average Win rate(all):</p>
-						<p>Personal Win rate:</p>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div>
-							<p>Average K/D:</p>
-							<p>Personal K/D:</p>
-						</div>
-					</li>
-					</ul>
-					<div class="card-block">
-						<a href="#" class="btn btn-primary">Hero Description</a>
-					</div>
-				</div>
-				<div class="card hero" style="width: 20rem;">
-					<img class="card-img-top" src="..." alt="Card image cap">
-					<div class="card-block">
-						<h6 class="card-title">Hero Name</h4>
-					</div>
-					<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<div>
-						<p>Average Win rate(all):</p>
-						<p>Personal Win rate:</p>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div>
-							<p>Average K/D:</p>
-							<p>Personal K/D:</p>
-						</div>
-					</li>
-					</ul>
-					<div class="card-block">
-						<a href="#" class="btn btn-primary">Hero Description</a>
-					</div>
-				</div>
-				<div class="card hero" style="width: 20rem;">
-					<img class="card-img-top" src="..." alt="Card image cap">
-					<div class="card-block">
-						<h6 class="card-title">Hero Name</h4>
-					</div>
-					<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<div>
-						<p>Average Win rate(all):</p>
-						<p>Personal Win rate:</p>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div>
-							<p>Average K/D:</p>
-							<p>Personal K/D:</p>
-						</div>
-					</li>
-					</ul>
-					<div class="card-block">
-						<a href="#" class="btn btn-primary">Hero Description</a>
-					</div>
-				</div>
+				</div> -->
 			</div>
 
 			</div>
@@ -486,6 +397,7 @@
 				</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</body>
+	<script type="text/javascript" src="../static/profile.js"></script>
 </html>
