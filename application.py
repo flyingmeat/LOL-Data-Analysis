@@ -66,7 +66,9 @@ def player_data():
 
 @application.route('/game_matches')
 def game_matches():
-	match_id = 2482294194
+	# match_id = 2482294194
+	match_id = request.args.get('match_id', 'None')
+	print match_id
 	url = "https://na.api.riotgames.com/api/lol/NA/v2.2/match/" + str(match_id) + "?includeTimeline=true&api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb"
 	response = urllib.urlopen(url)
 	data = json.loads(response.read())
@@ -101,9 +103,12 @@ def handle_match(match, account_id):
 	else:
 		result["win"] = "Lost"
 	# result["win"] = detail_info["win"]
-	result["K/D"] = str('%1.3f' % (float(detail_info["stats"]["kills"]) / float(detail_info["stats"]["deaths"])))
+	result["kill"] = detail_info["stats"]["kills"]
+	result["death"] = detail_info["stats"]["deaths"]
+	# result["K/D"] = str('%1.3f' % (float(detail_info["stats"]["kills"]) / float(detail_info["stats"]["deaths"])))
 	result["assist"] = detail_info["stats"]["assists"]
 	result["time"] = match["timestamp"]
+	result["match_id"] = match_id
 	# print result
 	return result
 

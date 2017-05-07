@@ -88,7 +88,10 @@ for (var i = 0; i < matchData.length; i++) {
 					'aria-labelledby' : 'data-tab',
 					'aria-expanded' : 'true'
 				}).append(
-					$('<p>', {'id': 'K/D', 'text' : "K/D: " + matchData[i]['K/D']})
+					$('<p>', {'id': 'Kill', 'text' : "Kill: " + matchData[i]['kill']})
+				)
+				.append(
+					$('<p>', {'id': 'Death', 'text' : "Kill: " + matchData[i]['death']})
 				)
 				.append(
 					$('<p>', {'id': 'assist', 'text' : "Assists: " + matchData[i]['assist']})	
@@ -171,12 +174,19 @@ for (var i = 0; i < matchData.length; i++) {
 			)
 		.append(
 			$('<div>', {'class' : 'card-block'}).append(
-				$('<a>', {'class' : 'btn btn-primary', 'href' : '/game_matches', 'text' : 'Match Detail'})
+				$('<a>', {'id' : matchData[i]['match_id'], 
+					'onclick' : 'matchClick(\'' + matchData[i]['match_id'] + '\')',
+					'class' : 'btn btn-primary', 
+					'href' : '/game_matches', 
+					'text' : 'Match Detail'})
 				)
 			);
 	$('#matches').append(card);
 }
 
+function matchClick(matchId) {
+	$('#' + matchId).attr('href', "/game_matches?match_id=" + matchId);
+}
 
 function playerClick(player_name, id) {
 	// console.log(id);
