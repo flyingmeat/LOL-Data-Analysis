@@ -85,7 +85,18 @@ pickRateLeaderData = prepareData(6, true);
 pickRateBottomList = prepareList(false);
 pickRateBottomData = prepareData(6, false);
 
-// 5. quadra kills 
+// 5. quadra kills count
+ctData.champion.sort(function(a, b) {
+  b.data[6] - a.data[6];
+});
+
+var pickRateLeaderList, pickRateLeaderData, pickRateBottomList, pickRateBottomData;
+pickRateLeaderList = prepareList(true);
+pickRateLeaderData = prepareData(6, true);
+pickRateBottomList = prepareList(false);
+pickRateBottomData = prepareData(6, false);
+
+// 6. penta kills count
 
 
 /* Team Data */
