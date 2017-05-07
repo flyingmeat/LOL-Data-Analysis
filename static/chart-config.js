@@ -62,7 +62,7 @@ ctData.ban_rate.sort(function(a, b) {
   b.data[0] - a.data[0];
 });
 
-var banRateLeaderList, banRateLeaderData, banRateBottomList, banRateBottomData;
+var banRateLeaderList = [], banRateLeaderData = [], banRateBottomList = [], banRateBottomData = [];
 
 for (var i = 0; i < 8; i++) {
   banRateLeaderList.push(ctData.ban_rate[i].name);
@@ -84,6 +84,8 @@ pickRateLeaderList = prepareList(true);
 pickRateLeaderData = prepareData(6, true);
 pickRateBottomList = prepareList(false);
 pickRateBottomData = prepareData(6, false);
+
+// 5. quadra kills 
 
 
 /* Team Data */
