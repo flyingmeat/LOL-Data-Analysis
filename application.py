@@ -41,6 +41,7 @@ def player_data():
 	hero_data = {}
 	match_data = {}
 	match_details = []
+	hero_name_mapping = {}
 
 	summnoer_info = requests.get(summoner_info_query + name + "?" + api_key)
 	if summnoer_info.status_code != 200:
@@ -62,7 +63,12 @@ def player_data():
 	print match_details
 
 
-	return render_template('my-profile.html', name = name, hero_data = hero_data, match_data = match_details)
+	with open("LOLMatchDataFeed/championList.json") as maps:
+		hero_name_mapping = json.load(maps)
+	print type(hero_name_mapping)
+	print hero_name_mapping
+
+	return render_template('my-profile.html', name = name, hero_data = hero_data, match_data = match_details, hero_name = hero_name_mapping)
 
 @application.route('/game_matches')
 def game_matches():

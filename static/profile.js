@@ -9,10 +9,15 @@ for (var i = 0; i < heroData.length; i++) {
 	var card = document.createElement("div");
 	$(card).addClass("card")
 			.addClass("hero")
-			.css('width', '20rem')
+			.css('width', '15rem')
+			.append(
+				$('<img>', {'class' : 'card-img-top', 'alt' : 'Card image cap', 'src': 'static/images/' + heroData[i]['championId'] + '.jpg'})
+				.css('height', '150px')
+				.css('width', '15rem')
+				)
 			.append(
 				$('<div>', {'class' : 'card-block'}).append(
-					$('<h6>', {'class' : 'card-title', 'text' : heroData[i]['championId']})
+					$('<h6>', {'class' : 'card-title', 'text' : hero_mapping[heroData[i]['championId'].toString()]['name']})
 					)
 				)
 			.append(
@@ -32,7 +37,7 @@ for (var i = 0; i < heroData.length; i++) {
 				)
 			.append(
 				$('<div>', {'class' : 'card-block'}).append(
-					$('<a>', {'class' : 'btn btn-primary', 'href' : '#', 'text' : 'Hero Description'})
+					$('<a>', {'class' : 'btn btn-primary', 'href' : 'http://gameinfo.na.leagueoflegends.com/en/game-info/champions/' + hero_mapping[heroData[i]['championId'].toString()]['key'] + '/', 'text' : 'Hero Description'})
 					)
 				);
 	$("#heros").append(card);
