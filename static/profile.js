@@ -7,7 +7,6 @@ console.log(matchData);
 
 for (var i = 0; i < heroData.length; i++) {
 	var card = document.createElement("div");
-	
 	$(card).addClass("card")
 			.addClass("hero")
 			.css('width', '20rem')
@@ -26,7 +25,7 @@ for (var i = 0; i < heroData.length; i++) {
 							$('<p>', {'text' : 'Champion Points: ' + heroData[i]['championPoints']})
 							)
 						.append(
-							$('<p>', {'text' : 'Last Play Time: ' + heroData[i]['lastPlayTime']})
+							$('<p>', {'text' : 'Last Play Time: ' + (new Date(heroData[i]['lastPlayTime'])).toISOString().slice(0, 10)})
 							)
 						)
 					)
@@ -43,7 +42,7 @@ for (var i = 0; i < matchData.length; i++) {
 	var card = document.createElement("div");
 	$(card).addClass("card")
 		.append(
-			$('<div>', {'class' : 'card-header', 'text' : "Play time: " + matchData[i]['time']})
+			$('<div>', {'class' : 'card-header', 'text' : "Play time: " + (new Date(matchData[i]['time'])).toISOString().slice(0, 10)})
 			)
 		.append(
 			$('<div>', {'class' : 'card-block'}).append(
@@ -105,36 +104,36 @@ for (var i = 0; i < matchData.length; i++) {
 				}).append(
 					$('<div>', {'class' : 'row'}).append(
 						$('<div>', {'class' : 'col-6 container card'}).append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][0]}))
+							$('<p>').append($('<a>', {'onclick' : 'playerClick(' + matchData[i]['players'][0] + ')', 'id' : matchData[i]['players'][0], 'text' : matchData[i]['players'][0]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][1]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][1], 'text' : matchData[i]['players'][1]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][2]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][2], 'text' : matchData[i]['players'][2]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][3]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][3], 'text' : matchData[i]['players'][3]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][4]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][4], 'text' : matchData[i]['players'][4]}))
 							)
 						)
 					.append(
 						$('<div>', {'class' : 'col-6 container card'}).append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][5]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][5], 'text' : matchData[i]['players'][5]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][6]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][6], 'text' : matchData[i]['players'][6]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][7]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][7], 'text' : matchData[i]['players'][7]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][8]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][8], 'text' : matchData[i]['players'][8]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'text' : matchData[i]['players'][9]}))
+							$('<p>').append($('<a>', {'id' : matchData[i]['players'][9], 'text' : matchData[i]['players'][9]}))
 							)
 						)
 					)
@@ -146,4 +145,9 @@ for (var i = 0; i < matchData.length; i++) {
 				)
 			);
 	$('#matches').append(card);
+}
+
+
+function playerClick(name) {
+	
 }
