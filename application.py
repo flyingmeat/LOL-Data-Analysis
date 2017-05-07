@@ -36,6 +36,7 @@ def test_route():
 def player_data():
 	name = request.args.get('user_name', 'None')
 	name = simplify_name(name)
+	print name
 	profile_data = {}
 	hero_data = {}
 	match_data = {}
@@ -80,6 +81,7 @@ def player_name():
 def handle_match(match, account_id):
 	result = {}
 	result["players"] = []
+	result["players_id"] = []
 	champion_id = match["champion"]
 	match_id = match["gameId"]
 	participant_id = 1
@@ -90,6 +92,7 @@ def handle_match(match, account_id):
 	match_data_detail = json.loads(match_data_detail_response.content)
 	for participant in match_data_detail["participantIdentities"]:
 		result["players"].append(participant["player"]["summonerName"])
+		result["players_id"].append(participant["player"]["accountId"])
 		if participant["player"]["accountId"] == account_id:
 			participant_id = participant["participantId"]
 	detail_info = match_data_detail["participants"][participant_id - 1]
