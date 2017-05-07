@@ -27,10 +27,8 @@ public class MapreduceTask {
                 .setAppName(MapreduceTask.class.getName())
                 .setMaster(master);
         JavaSparkContext context = new JavaSparkContext(conf);
-        context.hadoopConfiguration().set("fs.s3n.awsAccessKeyId", "");
-        context.hadoopConfiguration().set("fs.s3n.awsSecretAccessKey", "");
-        context.hadoopConfiguration().set("fs.s3.awsAccessKeyId", "");
-        context.hadoopConfiguration().set("fs.s3.awsSecretAccessKey", "");
+        context.hadoopConfiguration().set("fs.s3n.awsAccessKeyId", args[2]);
+        context.hadoopConfiguration().set("fs.s3n.awsSecretAccessKey", args[3]);
         BanRate banRate = new BanRate();
         banRate.doTask(args[0], context);
 

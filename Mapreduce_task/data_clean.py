@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+import json
 from itertools import groupby
 
 class Get_file(object):
@@ -27,7 +28,7 @@ class Get_file(object):
 							curr_result.append(values[i])
 					if name == 'champion' or name == 'ban_rate':
 						curr_result.append(values[-1])
-					result[name].append({key_value[0]: curr_result})
+					result[name].append({"name": key_value[0], "data" : curr_result})
 				file.close()
 
 
@@ -51,7 +52,9 @@ if __name__ == '__main__':
 		print attribute
 		print result[attribute]
 
-	requests.post('http://lol-data.nf33fef35j.us-west-2.elasticbeanstalk.com/update_data', json=result)
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	requests.post('http://lol-data.nf33fef35j.us-west-2.elasticbeanstalk.com/update_data', data=json.dumps(result), headers=headers)
+
 
 
 

@@ -25,12 +25,18 @@ class HttpHandler(BaseHTTPRequestHandler):
 			self.send_response(404)
 
 	def handle_process(self):
+		key = []
+		with open("config.txt") as source:
+			for line in source:
+				keys = line.split(' ')
+				key = keys
+		print key
 		if os.path.exists("output"):
 			print "it exists!\n"
 			shutil.rmtree("output")
 
 		subprocess.call(['java', '-jar', 'target/Mapreduce-task-1.0-SNAPSHOT.jar', 's3n://admin-matchdata/team.txt', \
-			's3n://admin-matchdata/champion.txt'])
+			's3n://admin-matchdata/champion.txt', key[0], key[1]])
 
 		banRate_output = self.get_output('output/output-banRate')
 		factor_output = self.get_output('output/output-factor/')
