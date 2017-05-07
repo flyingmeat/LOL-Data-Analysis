@@ -3,6 +3,7 @@
 
 // console.log(myName);
 // console.log(profileData.length);
+console.log(matchData);
 
 for (var i = 0; i < heroData.length; i++) {
 	var card = document.createElement("div");
@@ -36,4 +37,113 @@ for (var i = 0; i < heroData.length; i++) {
 					)
 				);
 	$("#heros").append(card);
+}
+
+for (var i = 0; i < matchData.length; i++) {
+	var card = document.createElement("div");
+	$(card).addClass("card")
+		.append(
+			$('<div>', {'class' : 'card-header', 'text' : "Play time: " + matchData[i]['time']})
+			)
+		.append(
+			$('<div>', {'class' : 'card-block'}).append(
+				$('<h2>', {'class' : 'card-title', 'text' : matchData[i]['win']})
+				)
+			)
+		.append(
+			$('<ul>', {'class' : 'nav nav-tabs', 'id' : 'myTab', 'role' : 'tablist'}).append(
+				$('<li>', {'class' : 'nav-item'}).append(
+					$('<a>', {
+						'class' : 'nav-link', 
+						'id' : 'match-tab', 
+						'data-toggle' : 'tab',
+						'href' : '#match-data' + i,
+						'role' : 'tab',
+						'aria-controls' : 'match-data',
+						'aria-expanded' : 'true',
+						'text' : 'Data'
+					})
+					)
+				)
+			.append(
+				$('<li>', {'class' : 'nav-item'}).append(
+					$('<a>', {
+						'class' : 'nav-link', 
+						'id' : 'player-tab', 
+						'data-toggle' : 'tab',
+						'href' : '#players' + i,
+						'role' : 'tab',
+						'aria-controls' : 'players',
+						'aria-expanded' : 'false',
+						'text' : 'Players'
+					})
+					)
+				)
+			)
+		.append(
+			$('<div>', {'class' : 'tab-content', 'id' : 'myTabContent'}).append(
+				$('<div>', {
+					'class' : 'tab-pane fade active show container',
+					'role' : 'tabpanel',
+					'id' : 'match-data' + i,
+					'aria-labelledby' : 'data-tab',
+					'aria-expanded' : 'true'
+				}).append(
+					$('<p>', {'id': 'K/D', 'text' : "K/D: " + matchData[i]['K/D']})
+				)
+				.append(
+					$('<p>', {'id': 'assist', 'text' : "Assists: " + matchData[i]['assist']})	
+					)
+				)
+			.append(
+				$('<div>', {
+					'class' : 'tab-pane fade container',
+					'id' : 'players' + i,
+					'role' : 'tabpanel', 
+					'aria-labelledby' : 'players-tab',
+					'aria-expanded' : 'false' 
+				}).append(
+					$('<div>', {'class' : 'row'}).append(
+						$('<div>', {'class' : 'col-6 container card'}).append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][0]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][1]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][2]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][3]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][4]}))
+							)
+						)
+					.append(
+						$('<div>', {'class' : 'col-6 container card'}).append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][5]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][6]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][7]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][8]}))
+							)
+						.append(
+							$('<p>').append($('<a>', {'text' : matchData[i]['players'][9]}))
+							)
+						)
+					)
+				)
+			)
+		.append(
+			$('<div>', {'class' : 'card-block'}).append(
+				$('<a>', {'class' : 'btn btn-primary', 'href' : '/game_matches', 'text' : 'Match Detail'})
+				)
+			);
+	$('#matches').append(card);
 }
