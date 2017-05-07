@@ -104,10 +104,10 @@ for (var i = 0; i < matchData.length; i++) {
 				}).append(
 					$('<div>', {'class' : 'row'}).append(
 						$('<div>', {'class' : 'col-6 container card'}).append(
-							$('<p>').append($('<a>', {'onclick' : 'playerClick(' + matchData[i]['players'][0] + ')', 'id' : matchData[i]['players'][0], 'text' : matchData[i]['players'][0]}))
+							$('<p>').append($('<a>', {'href' : '#', 'onclick' : 'playerClick(' + matchData[i]['players'][0] + ')', 'id' : matchData[i]['players'][0], 'text' : matchData[i]['players'][0]}))
 							)
 						.append(
-							$('<p>').append($('<a>', {'onclick' : 'playerClick(' + matchData[i]['players'][1] + ')', 'id' : matchData[i]['players'][1], 'text' : matchData[i]['players'][1]}))
+							$('<p>').append($('<a>', {'href' : '#', 'onclick' : 'playerClick(' + matchData[i]['players'][1] + ')', 'id' : matchData[i]['players'][1], 'text' : matchData[i]['players'][1]}))
 							)
 						.append(
 							$('<p>').append($('<a>', {'id' : matchData[i]['players'][2], 'text' : matchData[i]['players'][2]}))
@@ -148,6 +148,7 @@ for (var i = 0; i < matchData.length; i++) {
 }
 
 
-function playerClick(name) {
-	$("#" + name).attr('href', "/player_data?user_name=" + name);
+function playerClick(player_name) {
+	console.log(player_name);
+	// $("#" + player_name).attr('href', "/player_data?user_name=" + player_name);
 }
