@@ -13,8 +13,10 @@ api_key = "api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb"
 hero_query = "https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/"
 # summoner_info_query = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + "jruix?"
 summoner_info_query = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/"
-match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/230727164?endIndex=15&beginIndex=0&"
-
+# match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/230727164?endIndex=15&beginIndex=0&"
+match_list_query = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/"
+# match_detail_query = "https://na1.api.riotgames.com/lol/match/v3/matches/2493757882?"
+match_detail_query = "https://na1.api.riotgames.com/lol/match/v3/matches/"
 main_data = {}
 
 @application.route('/')
@@ -33,26 +35,43 @@ def test_route():
 def player_data():
 	name = request.args.get('user_name', 'None')
 	name = simplify_name(name)
+	print name
 	profile_data = {}
 	hero_data = {}
 	match_data = {}
+	match_details = []
+	hero_name_mapping = {}
 
 	summnoer_info = requests.get(summoner_info_query + name + "?" + api_key)
 	if summnoer_info.status_code != 200:
 		return "Error! there is no such summoner! " + str(summnoer_info.status_code)
 	profile_data = json.loads(summnoer_info.content)
 
-	recieve = requests.get(hero_query + str(profile_data["id"]) + "?" + api_key)
-	if recieve.status_code != 200:
-		return "Error!" + str(recieve.status_code)
-	hero_data = json.loads(recieve.content)
-	# match_data  = requests.get()
+	hero_response = requests.get(hero_query + str(profile_data["id"]) + "?" + api_key)
+	if hero_response.status_code != 200:
+		return "Error!" + str(hero_response.status_code)
+	hero_data = json.loads(hero_response.content)
 
-	return render_template('my-profile.html', name = name, hero_data = hero_data)
+	match_data_response  = requests.get(match_list_query + str(profile_data["accountId"]) + "?endIndex=6&beginIndex=0&" + api_key)
+	if match_data_response.status_code != 200:
+		return "Error!" + str(match_data_response.status_code)
+	match_data = json.loads(match_data_response.content)
+
+	for match_info in match_data["matches"]:
+		match_details.append(handle_match(match_info, profile_data["accountId"]))
+	print match_details
+
+
+	with open("LOLMatchDataFeed/championList.json") as maps:
+		hero_name_mapping = json.load(maps)
+	print type(hero_name_mapping)
+	print hero_name_mapping
+
+	return render_template('my-profile.html', name = name, hero_data = hero_data, match_data = match_details, hero_name = hero_name_mapping)
 
 @application.route('/game_matches')
 def game_matches():
-	match_id = 2482294194
+	match_id = request.args.get('match_id', 'None')
 	url_match = "https://na.api.riotgames.com/api/lol/NA/v2.2/match/" + str(match_id) + "?includeTimeline=true&api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb"
 	url_champion = "https://raw.githubusercontent.com/clementxia/LOL-Data-Analysis/master/LOLMatchDataFeed/championList.json"
 	response = urllib.urlopen(url_match)
@@ -66,6 +85,39 @@ def player_name():
 	name = request.args.get('name', '2')
 	print name
 	return jsonify(name)
+
+def handle_match(match, account_id):
+	result = {}
+	result["players"] = []
+	result["players_id"] = []
+	champion_id = match["champion"]
+	match_id = match["gameId"]
+	participant_id = 1
+	match_data_detail_response = requests.get(match_detail_query + str(match_id) + "?" + api_key)
+	if match_data_detail_response.status_code != 200:
+		print "Fail " + str(match_id)
+		return
+	match_data_detail = json.loads(match_data_detail_response.content)
+	for participant in match_data_detail["participantIdentities"]:
+		result["players"].append(participant["player"]["summonerName"])
+		result["players_id"].append(participant["player"]["accountId"])
+		if participant["player"]["accountId"] == account_id:
+			participant_id = participant["participantId"]
+	detail_info = match_data_detail["participants"][participant_id - 1]
+	if detail_info["stats"]["win"]:
+		result["win"] = "Win"
+	else:
+		result["win"] = "Lost"
+	# result["win"] = detail_info["win"]
+	result["kill"] = detail_info["stats"]["kills"]
+	result["death"] = detail_info["stats"]["deaths"]
+	# result["K/D"] = str('%1.3f' % (float(detail_info["stats"]["kills"]) / float(detail_info["stats"]["deaths"])))
+	result["assist"] = detail_info["stats"]["assists"]
+	result["time"] = match["timestamp"]
+	result["match_id"] = match_id
+	# print result
+	return result
+
 
 def simplify_name(name):
 	name = name.lower()

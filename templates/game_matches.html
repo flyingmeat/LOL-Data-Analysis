@@ -160,21 +160,24 @@
         var dotGroup = chart.append("g")
                            .attr("transform", "translate(" + 25 + "," + 25 + ")");
 
-        render(json.timeline.frames);
+        render(json);
 
         function setTime(newTime) {
             time = newTime;
-            render(json.timeline.frames);
+            render(json);
         }
         
         function render(data) {
-            var frame = data[time].participantFrames;
+            var frame = data.timeline.frames[time].participantFrames;
             var position = [];
             for (i = 1; i <= 10; i++) {
                 var obj = new Object();
                 obj.x = frame[i].position.x;
                 obj.y = frame[i].position.y;
-                obj.player = frame[i].participantId;
+                obj.player = data.participantIdentities[i-1].player.summonerName;
+                obj.gold = frame[i].currentGold;
+                obj.level = frame[i].level;
+                obj.minionsKilled = frame[i].minionsKilled;
                 position.push(obj);
             }
             renderChart(position);
@@ -208,7 +211,7 @@
                             top: d3.event.clientY,
                             left: d3.event.clientX,
                             opacity: 1
-                        }).text("Player:" + d.player);
+                        }).html("Player: "+d.player+"<br/>"+"Gold: "+d.gold+"<br/>"+"Level: "+d.level);
                     })
                     .on("mouseleave", function(d, i) {
                         d3.select("#tooltip").style({

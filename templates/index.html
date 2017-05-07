@@ -16,8 +16,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" integrity="sha256-thgNwq1kqppxWOZpF2V/KfgGpLeBWbLMg704XfwYUDQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        var data = {{ data|tojson }}
-        console.log(data)
+        // var ctData = {{ data|tojson }};
+        // console.log(ctData);
     </script>
   </head>
   <body>
@@ -42,7 +42,7 @@
             <div class="col-md-12">
                 <!-- <form> -->
                     <div class="form-group" align="center">
-                        <input type="text" class="form-control" id="name-bar" placeholder="Summoner name in NA server..."></input>
+                        <input type="text" class="form-control" id="name-bar" placeholder="summoner name in NA server..."></input>
                         <a href="{{url_for('player_data', user_name='abc')}}" class="btn btn-nice" id="name-btn">Find my data<span class="glyphicon glyphicon-chevron-right"></span></input></a>
                     </div>
                 <!-- </form> -->
@@ -53,48 +53,87 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs" id="gameTabList" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-expanded="true">Type 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile">Type 2</a>
+                        <a class="nav-link active" id="team-tab" data-toggle="tab" href="#team" role="tab" aria-controls="team" aria-expanded="true">Team Analysis</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#champion" role="button" aria-haspopup="true" aria-expanded="false">
+                        Champion Analysis
                         </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" id="dropdown1-tab" href="#dropdown1" role="tab" data-toggle="tab" aria-controls="dropdown1">Sub-Type-1</a>
-                            <a class="dropdown-item" id="dropdown2-tab" href="#dropdown2" role="tab" data-toggle="tab" aria-controls="dropdown2">Sub-Type-2</a>
+                        <div class="dropdown-menu" style="width: 100%">
+                            <a class="dropdown-item" id="leader-tab" href="#leader" role="tab" data-toggle="tab" aria-controls="leader">Leader</a>
+                            <a class="dropdown-item" id="bottom-tab" href="#bottom" role="tab" data-toggle="tab" aria-controls="bottom">Bottom</a>
                         </div>
                     </li>
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                    <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
+                    <div role="tabpanel" class="tab-pane fade show active" id="team" aria-labelledby="team-tab">
                         <div class="row chart-area">
                             <div class="col-md-6">
-                                <canvas id="type1-left-chart"></canvas>
+                                <canvas id="team-left-chart-1"></canvas>
                             </div>
                             <div class="col-md-6">
-                                <canvas id="type1-right-chart"></canvas>
+                                <canvas id="team-right-chart-1"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="team-left-chart-2"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="team-right-chart-2"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <div class="tab-pane fade" id="leader" role="tabpanel" aria-labelledby="leader-tab">
                         <div class="row chart-area">
                             <div class="col-md-6">
-                                <canvas id="type2-left-chart"></canvas>
+                                <canvas id="leader-left-chart-1"></canvas>
                             </div>
                             <div class="col-md-6">
-                                <canvas id="type2-right-chart"></canvas>
+                                <canvas id="leader-right-chart-1"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="leader-left-chart-2"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="leader-right-chart-2"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="leader-left-chart-3"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="leader-right-chart-3"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="dropdown1" role="tabpanel" aria-labelledby="dropdown1-tab">
-                        <p>Chart Group 3 BlaBlaBla......</p>
-                    </div>
-                    <div class="tab-pane fade" id="dropdown2" role="tabpanel" aria-labelledby="dropdown2-tab">
-                        <p>Chart Group 4 BlaBlaBla......</p>
+
+                    <div class="tab-pane fade" id="bottom" role="tabpanel" aria-labelledby="bottom-tab">
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="bottom-left-chart-1"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="bottom-right-chart-1"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="row chart-area">
+                            <div class="col-md-6">
+                                <canvas id="bottom-left-chart-2"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="bottom-right-chart-2"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,9 +141,6 @@
     </div>
 
     <script type="text/javascript" src="../static/chart-config.js"></script>
-
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <!-- Typed.js -->
