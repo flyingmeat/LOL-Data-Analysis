@@ -58,7 +58,7 @@
         <div class="container">
             <h2>Match Details</h2>
             <table class="table">
-              <thead>
+              <thead class="thead-default">
                 <tr>
                   <th>Blue Team</th>
                   {% if data.teams[0].winner %}
@@ -66,51 +66,65 @@
                   {% else %}
                   <th>Result: Lose</th>
                   {% endif %}
+                  <th></th>
                   <th>Red Team</th>
                   {% if data.teams[1].winner %}
                   <th>Result: Win</th>
                   {% else %}
                   <th>Result: Lose</th>
                   {% endif %}
+                  <th></th>
                 </tr>
               </thead>
               <thread>
                 <tr>
                     <th>Summoner Name</th>
+                    <th>Champion</th>
                     <th>KDA</th>
                     <th>Summoner Name</th>
+                    <th>Champion</th>
                     <th>KDA</th>
                 </tr>
               </thread>
               <tbody>
                 <tr>
                     <th>{{ data.participantIdentities[0].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[0].championId|string].name }}</th>
                     <th>{{ data.participants[0].stats.kills }}/{{ data.participants[0].stats.deaths }}/{{ data.participants[0].stats.assists }}</th>
                     <th>{{ data.participantIdentities[5].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[5].championId|string].name }}</th>
                     <th>{{ data.participants[5].stats.kills }}/{{ data.participants[5].stats.deaths }}/{{ data.participants[5].stats.assists }}</th>
                 </tr>
                 <tr>
                     <th>{{ data.participantIdentities[1].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[1].championId|string].name }}</th>
                     <th>{{ data.participants[1].stats.kills }}/{{ data.participants[1].stats.deaths }}/{{ data.participants[1].stats.assists }}</th>
                     <th>{{ data.participantIdentities[6].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[6].championId|string].name }}</th>
                     <th>{{ data.participants[6].stats.kills }}/{{ data.participants[6].stats.deaths }}/{{ data.participants[6].stats.assists }}</th>
                 </tr>
                 <tr>
                     <th>{{ data.participantIdentities[2].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[2].championId|string].name }}</th>
                     <th>{{ data.participants[2].stats.kills }}/{{ data.participants[2].stats.deaths }}/{{ data.participants[2].stats.assists }}</th>
                     <th>{{ data.participantIdentities[7].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[7].championId|string].name }}</th>
                     <th>{{ data.participants[7].stats.kills }}/{{ data.participants[7].stats.deaths }}/{{ data.participants[7].stats.assists }}</th>
                 </tr>
                 <tr>
                     <th>{{ data.participantIdentities[3].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[3].championId|string].name }}</th>
                     <th>{{ data.participants[3].stats.kills }}/{{ data.participants[3].stats.deaths }}/{{ data.participants[3].stats.assists }}</th>
                     <th>{{ data.participantIdentities[8].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[8].championId|string].name }}</th>
                     <th>{{ data.participants[8].stats.kills }}/{{ data.participants[8].stats.deaths }}/{{ data.participants[8].stats.assists }}</th>
                 </tr>
                 <tr>
                     <th>{{ data.participantIdentities[4].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[4].championId|string].name }}</th>
                     <th>{{ data.participants[4].stats.kills }}/{{ data.participants[4].stats.deaths }}/{{ data.participants[4].stats.assists }}</th>
                     <th>{{ data.participantIdentities[9].player.summonerName }}</th>
+                    <th>{{ champion[data.participants[9].championId|string].name }}</th>
                     <th>{{ data.participants[9].stats.kills }}/{{ data.participants[9].stats.deaths }}/{{ data.participants[9].stats.assists }}</th>
                 </tr>
               </tbody>
