@@ -11,7 +11,7 @@ var prepareList = function(isLeader) {
       result.push(ctData.champion[i].name);
     }
   } else {
-    for (var i = ctData.champion.length - 8; i < ctData.champion.length; i++) {
+    for (var i = ctData.champion.length - 1; i >= ctData.champion.length - 8; i--) {
       result.push(ctData.champion[i].name);
     }
   }
@@ -27,7 +27,7 @@ var prepareData = function(index, isLeader) {
       result.push(ctData.champion[i].data[index]);
     }
   } else {
-    for (var i = ctData.champion.length - 8; i < ctData.champion.length; i++) {
+    for (var i = ctData.champion.length - 1; i >= ctData.champion.length - 8; i--) {
       result.push(ctData.champion[i].data[index]);
     }
   }
@@ -37,7 +37,7 @@ var prepareData = function(index, isLeader) {
 
 // 1. win rate
 ctData.champion.sort(function(a, b) {
-  b.data[0] - a.data[0];
+  return b.data[0] - a.data[0];
 });
 
 var winRateLeaderList, winRateLeaderData, winRateBottomList, winRateBottomData;
@@ -48,7 +48,7 @@ winRateBottomData = prepareData(0, false);
 
 // 2. first blood rate
 ctData.champion.sort(function(a, b) {
-  b.data[1] - a.data[1];
+  return b.data[1] - a.data[1];
 });
 
 var fbRateLeaderList, fbRateLeaderData, fbRateBottomList, fbRateBottomData;
@@ -59,7 +59,7 @@ fbRateBottomData = prepareData(1, false);
 
 // 3. ban rate
 ctData.ban_rate.sort(function(a, b) {
-  b.data[0] - a.data[0];
+  return b.data[0] - a.data[0];
 });
 
 var banRateLeaderList = [], banRateLeaderData = [], banRateBottomList = [], banRateBottomData = [];
@@ -69,14 +69,14 @@ for (var i = 0; i < 8; i++) {
   banRateLeaderData.push(ctData.ban_rate[i].data[0]);
 }
 
-for (var i = ctData.ban_rate.length - 8; i < ctData.ban_rate.length; i++) {
+for (var i = ctData.ban_rate.length - 1; i >= ctData.ban_rate.length - 8; i--) {
   banRateBottomList.push(ctData.ban_rate[i].name);
   banRateBottomData.push(ctData.ban_rate[i].data[0]);
 }
 
 // 4. pick rate
 ctData.champion.sort(function(a, b) {
-  b.data[6] - a.data[6];
+  return b.data[6] - a.data[6];
 });
 
 var pickRateLeaderList, pickRateLeaderData, pickRateBottomList, pickRateBottomData;
@@ -87,17 +87,21 @@ pickRateBottomData = prepareData(6, false);
 
 // 5. quadra kills count
 ctData.champion.sort(function(a, b) {
-  b.data[6] - a.data[6];
+  return b.data[4] - a.data[4];
 });
 
-var pickRateLeaderList, pickRateLeaderData, pickRateBottomList, pickRateBottomData;
-pickRateLeaderList = prepareList(true);
-pickRateLeaderData = prepareData(6, true);
-pickRateBottomList = prepareList(false);
-pickRateBottomData = prepareData(6, false);
+var quadrakillLeaderList, quadrakillLeaderData;
+quadrakillLeaderList = prepareList(true).slice(0, 5);
+quadrakillLeaderData = prepareData(4, true).slice(0, 5);
 
 // 6. penta kills count
+ctData.champion.sort(function(a, b) {
+  return b.data[5] - a.data[5];
+});
 
+var pentakillLeaderList, pentakillLeaderData;
+pentakillLeaderList = prepareList(true).slice(0, 5);
+pentakillLeaderData = prepareData(5, true).slice(0, 5);
 
 /* Team Data */
 // Team left-chart-1
@@ -296,10 +300,10 @@ var leaderBarChart4 = new Chart(document.getElementById("leader-right-chart-2"),
 var leaderBarChart5 = new Chart(document.getElementById("leader-left-chart-3"), {
   type: 'bar',
   data: {
-    labels: ["Vi", "Galio", "Velkoz", "Rammus", "Anivia", "Twitch", "Janna", "Shaco"],
+    labels: quadrakillLeaderList,
     datasets: [{
-      label: 'Quadra Kills Counts',
-      data: [0.545, 0.539, 0.537, 0.533, 0.532, 0.532, 0.529, 0.527],
+      label: 'Quadra Kills Counts (~90,000 matches)',
+      data: quadrakillLeaderData,
       backgroundColor: "rgba(57, 214, 73, 0.5)",
       borderColor: "rgba(57, 214, 73, 1)",
       borderWidth: 2
@@ -320,10 +324,10 @@ var leaderBarChart5 = new Chart(document.getElementById("leader-left-chart-3"), 
 var leaderBarChart6 = new Chart(document.getElementById("leader-right-chart-3"), {
   type: 'bar',
   data: {
-    labels: ["Vi", "Galio", "Velkoz", "Rammus", "Anivia", "Twitch", "Janna", "Shaco"],
+    labels: pentakillLeaderList,
     datasets: [{
-      label: 'Penta Kills Counts',
-      data: [0.545, 0.539, 0.537, 0.533, 0.532, 0.532, 0.529, 0.527],
+      label: 'Penta Kills Counts (~90,000 matches)',
+      data: pentakillLeaderData,
       backgroundColor: "rgba(0, 116, 217, 0.5)",
       borderColor: "rgba(0, 116, 217, 1)",
       borderWidth: 2
