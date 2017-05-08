@@ -5,7 +5,6 @@ from flask import Response
 import urllib
 import json
 import requests
-import json
 
 application = Flask(__name__)
 # name = ''
@@ -72,13 +71,14 @@ def player_data():
 
 @application.route('/game_matches')
 def game_matches():
-	# match_id = 2482294194
 	match_id = request.args.get('match_id', 'None')
-	print match_id
-	url = "https://na.api.riotgames.com/api/lol/NA/v2.2/match/" + str(match_id) + "?includeTimeline=true&api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb"
-	response = urllib.urlopen(url)
+	url_match = "https://na.api.riotgames.com/api/lol/NA/v2.2/match/" + str(match_id) + "?includeTimeline=true&api_key=RGAPI-e32c63af-2edc-4e3b-8b57-63887e95fadb"
+	url_champion = "https://raw.githubusercontent.com/clementxia/LOL-Data-Analysis/master/LOLMatchDataFeed/championList.json"
+	response = urllib.urlopen(url_match)
+	response_champion = urllib.urlopen(url_champion)
 	data = json.loads(response.read())
-	return render_template('game_matches.html', data=data)
+	champion = json.loads(response_champion.read())
+	return render_template('game_matches.html', data=data, champion=champion)
 
 @application.route('/player_name')
 def player_name():
