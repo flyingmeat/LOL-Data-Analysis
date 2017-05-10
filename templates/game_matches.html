@@ -209,7 +209,7 @@
                         d3.select("#tooltip").style({
                             visibility: "visible",
                             top: d3.event.clientY,
-                            left: d3.event.clientX,
+                            left: d3.event.clientX - 365,
                             opacity: 1
                         }).html("Player: "+d.player+"<br/>"+"Gold: "+d.gold+"<br/>"+"Level: "+d.level);
                     })
